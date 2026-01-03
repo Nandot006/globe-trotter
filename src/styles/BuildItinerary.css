@@ -1,0 +1,123 @@
+.build-itinerary-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.itinerary-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.itinerary-content h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.itinerary-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.itinerary-section h3 {
+  margin: 0 0 1.5rem;
+  color: #667eea;
+  font-size: 1.5rem;
+}
+
+.section-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-row input[type="date"] {
+  flex: 1;
+}
+
+.form-row span {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.activities-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e0e0e0;
+}
+
+.activities-section h4 {
+  margin: 0 0 1rem;
+  color: #333;
+}
+
+.activity-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.add-activity-btn {
+  padding: 0.7rem;
+  background: #f5f7fa;
+  border: 2px dashed #667eea;
+  color: #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.add-activity-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.add-section-btn {
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  border: 2px dashed #667eea;
+  color: #667eea;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 1rem;
+}
+
+.add-section-btn:hover {
+  background: #f5f7fa;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.save-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}

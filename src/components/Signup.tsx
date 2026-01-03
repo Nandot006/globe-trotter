@@ -1,21 +1,26 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import './Auth.css'
 
 const Signup = () => {
   const [formData, setFormData] = useState({
+    username: '',
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    phoneNumber: '',
+    phone: '',
     city: '',
     country: '',
-    description: '',
+    additionalInfo: '',
   })
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isLoading, setIsLoading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const { signup } = useAuth()
+  const navigate = useNavigate()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -86,6 +91,10 @@ const Signup = () => {
   const validate = () => {
     const newErrors: Record<string, string> = {}
     
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required'
+    }
+    
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required'
     }
@@ -100,10 +109,8 @@ const Signup = () => {
       newErrors.email = 'Email is invalid'
     }
     
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required'
-    } else if (!/^[\d\s\-\+\(\)]+$/.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = 'Please enter a valid phone number'
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required'
     }
     
     if (!formData.city.trim()) {
@@ -127,36 +134,20 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (validate()) {
+      setIsLoading(true)
       try {
-        const response = await fetch('http://localhost:3001/api/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            password: formData.password,
-            phoneNumber: formData.phoneNumber,
-            city: formData.city,
-            country: formData.country,
-            description: formData.description,
-            profilePicture: profilePicture,
-          }),
-        })
-
-        const data = await response.json()
-
-        if (response.ok) {
-          alert('Account created successfully! Please login.')
-          window.location.href = '/login'
+        const success = await signup(formData)
+        
+        if (success) {
+          navigate('/home')
         } else {
-          setErrors({ submit: data.error || 'Registration failed' })
+          setErrors({ submit: 'Registration failed. Username or email may already exist.' })
         }
       } catch (error) {
         console.error('Registration error:', error)
         setErrors({ submit: 'Failed to connect to server. Please try again.' })
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -225,17 +216,47 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
               onChange={handleInputChange}
-              className={errors.email ? 'input-error' : ''}
-              placeholder="Enter your email"
+              className={errors.username ? 'input-error' : ''}
+              placeholder="Choose a username"
             />
-            {errors.email && <span className="error-message">{errors.email}</span>}
+            {errors.username && <span className="error-message">{errors.username}</span>}
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className={errors.email ? 'input-error' : ''}
+                placeholder="Enter your email"
+              />
+              {errors.email && <span className="error-message">{errors.email}</span>}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className={errors.phone ? 'input-error' : ''}
+                placeholder="Enter your phone number"
+              />
+              {errors.phone && <span className="error-message">{errors.phone}</span>}
+            </div>
           </div>
 
           <div className="form-group">
@@ -250,20 +271,6 @@ const Signup = () => {
               placeholder="Enter your password"
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-              className={errors.phoneNumber ? 'input-error' : ''}
-              placeholder="Enter your phone number"
-            />
-            {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
           </div>
 
           <div className="form-row">
@@ -297,11 +304,11 @@ const Signup = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="additionalInfo">Additional Information</label>
             <textarea
-              id="description"
-              name="description"
-              value={formData.description}
+              id="additionalInfo"
+              name="additionalInfo"
+              value={formData.additionalInfo}
               onChange={handleInputChange}
               rows={4}
               placeholder="Tell us about yourself (optional)"
@@ -315,8 +322,8 @@ const Signup = () => {
             </div>
           )}
 
-          <button type="submit" className="auth-button primary">
-            Register User
+          <button type="submit" className="auth-button primary" disabled={isLoading}>
+            {isLoading ? 'Creating Account...' : 'Register User'}
           </button>
 
           <div className="auth-footer">

@@ -1,0 +1,209 @@
+.admin-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.admin-content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.admin-tabs button {
+  padding: 0.8rem 1.5rem;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: #666;
+}
+
+.admin-tabs button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.admin-tabs button:hover:not(.active) {
+  background: #f5f7fa;
+}
+
+.admin-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0 0 1rem;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #667eea;
+  margin: 0;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.chart-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.chart-card h3 {
+  margin: 0 0 1.5rem;
+  color: #333;
+}
+
+.chart-placeholder {
+  min-height: 250px;
+}
+
+.pie-chart,
+.line-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chart-item,
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background: #f5f7fa;
+  border-radius: 8px;
+}
+
+.chart-label {
+  font-weight: 600;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.chart-value {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.admin-users,
+.admin-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.admin-users h2,
+.admin-section h2 {
+  margin: 0 0 1.5rem;
+  color: #333;
+}
+
+.add-btn {
+  padding: 0.8rem 2rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s;
+}
+
+.add-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead {
+  background: #f5f7fa;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-table th {
+  font-weight: 600;
+  color: #333;
+}
+
+.admin-table td {
+  color: #666;
+}
+
+.admin-table tbody tr:hover {
+  background: #f5f7fa;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+  transition: all 0.3s;
+}
+
+.action-btn:hover {
+  background: #5568d3;
+}
+
+.action-btn.delete {
+  background: #e74c3c;
+}
+
+.action-btn.delete:hover {
+  background: #c0392b;
+}
